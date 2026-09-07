@@ -25,9 +25,10 @@ the WMT/connsys modules explicitly appended for the vendor dlkm image:
   device without them (order matters, see BoardConfig comment).
 * `vendor_dlkm/lib/modules/modules.load`: 166 modules, plus the WMT extras
   listed in BoardConfig (`wmt_drv.ko`, `wlan_drv_gen4m_6768.ko`, ...).
-* `system_dlkm/lib/modules/modules.load`: 27 modules. The original stock
-  list was trimmed to the 27 modules that are actually required on this
-  tree - verified during bring-up, do not blindly restore the full list.
+* `system_dlkm/lib/modules/modules.load`: the full stock module set
+  (78/78, matching the directory contents). Keep it complete - do not trim
+  modules that this device may not obviously use; the list is the stock
+  load order and must stay in sync with the `.ko` files.
 
 Keeping the directories in sync: when a module is added/removed, update both
 the `.ko` file and the matching `modules.load` entry together. Modules that
@@ -37,8 +38,7 @@ are not listed are never installed into the image.
 
 Artifacts come from the stock build
 `BLUEFOX-NX1/T69_S39_BLUEFOX_NX1_B1USA_20260112` (boot.img / vendor_boot.img
-/ super.img in the vendor dump). The old full `system_dlkm` module set is
-kept in this repo's git history if a module ever needs to be restored.
+/ super.img in the vendor dump).
 
 To refresh from a new stock release: unpack the stock images, replace
 `Image.gz`/`dtbo.img`/`dtb/` and the three module directories, then rerun the
